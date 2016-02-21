@@ -1,14 +1,19 @@
 package com.win.controller;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Administrator on 2016-02-21.
  */
+
+@EnableAutoConfiguration
 public class HellowController {
-    @RequestMapping("/hellow")
+    @RequestMapping("hello")
     @ResponseBody
     public String hellow(){
         return "哈喽，Spring Boot ！";
