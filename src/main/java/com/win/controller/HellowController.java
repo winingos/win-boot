@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @EnableAutoConfiguration
-@RequestMapping("")
+@RequestMapping
 public class HellowController {
     @RequestMapping("hello")
     @ResponseBody

@@ -1,0 +1,14 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:context="http://www.springframework.org/schema/context"-->
+       <!--xsi:schemaLocation="-->
+	<!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd-->
+	<!--http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"-->
+       <!--default-autowire="byName">-->
+    <!--&lt;!&ndash;<import resource="spring-mybatis.xml"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<import resource="spring-remote-client.xml"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<context:component-scan base-package="mx.api.service">&ndash;&gt;-->
+        <!--&lt;!&ndash;<context:exclude-filter type="regex" expression="mx.api.service.dto.*"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</context:component-scan>&ndash;&gt;-->
+<!--</beans>-->
