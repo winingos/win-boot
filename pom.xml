@@ -4,10 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.0.RELEASE</version>
+    </parent>
+
     <groupId>com.win</groupId>
     <artifactId>win-boot</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${win.boot.version}</version>
     <build>
         <plugins>
             <plugin>
@@ -22,27 +28,29 @@
     </build>
     <modules>
         <module>archetype</module>
+        <!--<module>spr-framework</module>-->
     </modules>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!--<version.slf4j>1.7.6</version.slf4j>-->
+        <win.boot.version>1.0-SNAPSHOT</win.boot.version>
+        <!-- use parent pom settings -->
+        <version.jdk>1.8</version.jdk>
+        <!--<version.lark>0.9.8</version.lark>-->
+        <version.spring.boot>1.3.0.RELEASE</version.spring.boot>
+        <version.junit>4.12</version.junit>
+        <!--<version.pinpoint>1.5.0</version.pinpoint>-->
+    </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.7.RELEASE</version>
-    </parent>
 
-    <!--<exclusions>-->
-        <!--<exclusion>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-        <!--</exclusion>-->
-    <!--</exclusions>-->
     <dependencies>
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -62,7 +70,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.8.21</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
     </dependencies>
 

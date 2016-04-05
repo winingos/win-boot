@@ -2,6 +2,8 @@ package com.comment.java8.newdate;
 
 import org.testng.annotations.Test;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -86,5 +88,15 @@ public class NewDateDemo {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd,yyyy - HH:mm");
         LocalDateTime parse = LocalDateTime.parse("03 03,2015 - 07:13", formatter);
         System.out.println(parse);
+    }
+    @Test
+    public void testJS()throws Throwable{
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine script = manager.getEngineByName("JavaScript");
+
+        System.out.println("script = " + script.getClass().getName());
+        System.out.println("re:"+script.eval("function f() {return 1;}; f()+1;"));
+
+
     }
 }
