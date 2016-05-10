@@ -1,6 +1,7 @@
 package com.comment.prettyInstance;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 

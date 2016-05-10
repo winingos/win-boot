@@ -1,7 +1,7 @@
 package com.comment.reflect;
 
 import lombok.Data;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.lang.reflect.*;
 
@@ -9,32 +9,33 @@ import java.lang.reflect.*;
  * Created by Mtime on 2016/2/5.
  */
 @Data
-public class TestReflection {
+public  class  TestReflection {
 
 
-    private String username;
+    private  String username;
 
     private String password;
 
     private int[] age;
 
 
-//    public void setUserName(String username) {
+//    public void setUsername(String username) {
 //        this.username = username;
 //    }
 //
-//    private void setPassWord(String password) {
+//    private void setPassword(String password) {
 //        this.password = password;
 //    }
-    @Override
-    public String toString(){
-        return "username="+username+",password="+password;
-    }
+//    @Override
+//    public String toString(){
+//        return "username="+username+",password="+password;
+//    }
 
 
     public static void main(String[] args) {
         Class clazz = TestReflection.class;
-//        获取包名
+//        获取包
+
         System.out.println("pacakage = [" + clazz.getPackage().getName() + "]");
 //        获取类的修饰符
         int modifiers = clazz.getModifiers();
@@ -112,24 +113,23 @@ public class TestReflection {
             System.out.print(paramType.getName());
             }
     }
-
-    @Test
     //反射调用方法，可以通过Method类的invoke方法实现动态方法的调用
     //public Object invoke(Object obj, Object... args)
     //第一个参数代表对象
     //第二个参数代表执行方法上的参数
     //若反射要调用类的某个私有方法，可以在这个私有方法对应的Mehtod对象上先 调用setAccessible(true)
-    public void test1() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    @Test
+    public void test33() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         Class c1 = TestReflection.class;
         TestReflection t1 = (TestReflection) c1.newInstance(); //利用反射来创建类的对象
         System.out.println(t1.toString());
-
-        Method method = c1.getDeclaredMethod("setUserName", String.class);
+     //t1.setUsername();
+        Method method = c1.getDeclaredMethod("setUsername", String.class);
         method.invoke(t1, "learn java reflect!");
         System.out.println(t1.toString());
-        method = c1.getDeclaredMethod("setPassWord",String.class);
-        method.setAccessible(true);
-        method.invoke(t1,"反射执行某个Private修饰的方法");
+        Method method1 = c1.getDeclaredMethod("setPassword",String.class);
+        method1.setAccessible(true);
+        method1.invoke(t1,"反射执行某个Private修饰的方法");
         System.out.println(t1.toString());
     }
 }

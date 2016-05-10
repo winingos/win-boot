@@ -1,6 +1,7 @@
 package com.comment.java8.newdate;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

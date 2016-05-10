@@ -1,7 +1,7 @@
 package com.comment.java8.streams;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.List;
 public class Demo0 {
     List<String> stringCollection;
 
-    @BeforeTest
+    @Before
     public void testStreams1() {
         stringCollection = new ArrayList<>();
         stringCollection.add("ddd2");

@@ -1,6 +1,7 @@
 package com.comment.java8;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
 
 import java.util.Optional;
 

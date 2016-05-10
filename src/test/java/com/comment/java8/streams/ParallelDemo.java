@@ -1,7 +1,8 @@
 package com.comment.java8.streams;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ParallelDemo {
     final int max = 1000000;
     List<String> values = new ArrayList<>(max);
 //    List<String> values = new ArrayList<>()
-    @BeforeTest
+    @Before
     public void init(){
 
         for (int i = 0; i < max; i++) {
