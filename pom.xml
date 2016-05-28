@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.0.RELEASE</version>
+        <version>1.3.3.RELEASE</version>
     </parent>
 
     <groupId>com.win</groupId>
@@ -39,7 +39,7 @@
         <!-- use parent pom settings -->
         <version.jdk>1.8</version.jdk>
         <!--<version.lark>0.9.8</version.lark>-->
-        <version.spring.boot>1.3.0.RELEASE</version.spring.boot>
+        <version.spring.boot>1.3.3.RELEASE</version.spring.boot>
         <version.junit>4.12</version.junit>
         <!--<version.pinpoint>1.5.0</version.pinpoint>-->
     </properties>
@@ -60,17 +60,29 @@
             <artifactId>lombok</artifactId>
             <version>1.16.4</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <dependency>
+            <artifactId>lark-util</artifactId>
+            <groupId>mtime.lark</groupId>
+            <version>1.0.4</version>
+        </dependency>
+
         <!--<dependency>-->
-            <!--<groupId>org.testng</groupId>-->
-            <!--<artifactId>testng</artifactId>-->
-            <!--<version>6.8.21</version>-->
-            <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+        <!--<groupId>org.testng</groupId>-->
+        <!--<artifactId>testng</artifactId>-->
+        <!--<version>6.8.21</version>-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
         <!--</dependency>-->
     </dependencies>
 
