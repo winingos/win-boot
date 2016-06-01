@@ -73,10 +73,15 @@
             <version>1.2.6</version>
         </dependency>
         <dependency>
-            <artifactId>lark-util</artifactId>
-            <groupId>mtime.lark</groupId>
-            <version>1.0.4</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<artifactId>lark-util</artifactId>-->
+            <!--<groupId>mtime.lark</groupId>-->
+            <!--<version>1.0.4</version>-->
+        <!--</dependency>-->
 
         <!--<dependency>-->
         <!--<groupId>org.testng</groupId>-->
