@@ -20,4 +20,8 @@ public class OptionalDemo {
         System.out.println(fullName.map(s -> "hey "+s+"!").orElse(")-("));
         fullName.ifPresent(s -> System.out.println("s = " + s));
     }
+    @Test
+    public  void test(){
+        System.out.println("true = " + "7".matches("^\\d+$"));
+    }
 }
