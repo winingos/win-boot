@@ -3,7 +3,6 @@ package com.win.common.dto.lang;
 /**
  * Created by ning.wang on 2016/6/1.
  */
-import org.apache.commons.lang3.text.StrBuilder;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
@@ -84,11 +83,10 @@ public class FaultException extends RuntimeException {
      * @return
      */
     public String toStringDetail() {
-        StrBuilder sb = new StrBuilder();
+        StringBuilder sb = new StringBuilder();
         sb
-                .appendln(getStackTraceString())
-                .append(getDataString())
-                .appendNewLine();
+                .append(getStackTraceString())
+                .append(getDataString());
         return sb.toString();
     }
 
@@ -146,9 +144,9 @@ public class FaultException extends RuntimeException {
      */
     public String getDataString() {
         if (data != null && data.size() > 0) {
-            StrBuilder sb = new StrBuilder();
+            StringBuilder sb = new StringBuilder();
             for (String k : data.keySet()) {
-                sb.append(k).append(": ").append(data.get(k)).appendNewLine();
+                sb.append(k).append(": ").append(data.get(k)).append("\n");
             }
             return sb.toString();
         }

@@ -1,16 +1,13 @@
 package com.win.common.dto;
 
-import com.google.common.collect.Maps;
+
 import com.win.common.dto.log.Logger;
 import com.win.common.dto.log.LoggerManager;
 import com.win.common.dto.reflect.ClassUtil;
 import com.win.common.dto.reflect.ReflectUtil;
 import com.win.common.dto.support.Converter;
 import com.win.common.dto.support.ConverterManager;
-import mtime.lark.util.lang.EnumDisplayNameSupport;
-import mtime.lark.util.lang.EnumValueSupport;
 
-import org.springframework.util.Assert;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -45,7 +42,7 @@ public class DtoUtils {
 
     public static <T> T clone(Object src,T dest){
         if(src==null) return null;
-        Assert.notNull(dest, "目标对象不能为空");
+        Objects.requireNonNull(dest, "目标对象不能为空");
         Map<String, PropertyDescriptor> srcmaper = getPropertyMaper(src);
         Map<String, PropertyDescriptor> destmaper = getPropertyMaper(dest);
 //        destmaper.keySet().stream()
@@ -82,7 +79,7 @@ public class DtoUtils {
      */
     public static <T> T copy(Object src, T dest) {
         if (src == null) return null;
-        Assert.notNull(dest, "目标对象不能为空");
+        Objects.requireNonNull(dest, "目标对象不能为空");
         Map<String, Field> srcMap = getFieldMapper(src);
         Map<String, Field> destMap = getFieldMapper(dest);
         for (String fieldName : destMap.keySet()) {
@@ -228,12 +225,12 @@ public class DtoUtils {
         if (obj == null) return null;
         Map<String, Object> map = new HashMap<>();
         map.put("name", obj.name());
-        if (obj instanceof EnumValueSupport) {
-            map.put("value", ((EnumValueSupport) obj).value());
-        }
-        if (obj instanceof EnumDisplayNameSupport) {
-            map.put("displayName", ((EnumDisplayNameSupport) obj).displayName());
-        }
+//        if (obj instanceof EnumValueSupport) {
+//            map.put("value", ((EnumValueSupport) obj).value());
+//        }
+//        if (obj instanceof EnumDisplayNameSupport) {
+//            map.put("displayName", ((EnumDisplayNameSupport) obj).displayName());
+//        }
         return map;
     }
 
@@ -311,7 +308,7 @@ public class DtoUtils {
     }
 
     static Map<String, PropertyDescriptor> getPropertyMaper(Object obj) {
-        Map<String, PropertyDescriptor> map = Maps.newHashMap();
+        Map<String, PropertyDescriptor> map = new HashMap<>();
         try {
             PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(obj.getClass()).getPropertyDescriptors();
             map = Stream.of(propertyDescriptors)

@@ -37,6 +37,7 @@ target/
 *.diff
 *.patch
 *.tmp
+*.cvs
 
 # system ignore
 .DS_Store
