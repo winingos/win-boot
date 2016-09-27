@@ -2,7 +2,6 @@ package com.thinkinjava.proxies;
 
 import sun.misc.ProxyGenerator;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,21 +17,25 @@ public class ProxyHandler implements InvocationHandler{
     {
         this.proxied = proxied;
     }
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args ) throws Throwable
     {
         //在转调具体目标对象之前，可以执行一些功能处理
-
+        // 在目标对象的方法执行之前简单的打印一下
+        System.out.println("------------------before------------------");
         //转调具体目标对象的方法
-        return method.invoke( proxied, args);
+        Object result = method.invoke(proxied, args);
 
         //在转调具体目标对象之后，可以执行一些功能处理
+        System.out.println("------------------after------------------");
+        return result;
     }
 }
 class DynamicProxy{
     public static void main( String args[] ){
         RealSubject real=new RealSubject();
         Subject proSub = (Subject) Proxy.newProxyInstance(Subject.class.getClassLoader(),
-                new Class[]{Subject.class},
+                RealSubject.class.getInterfaces(),
                 new ProxyHandler(real));
         proSub.doSomething();
         //write proxySubject class binary data to file
