@@ -1,5 +1,7 @@
 package com.thinkinjava.holding;
 
+import org.junit.Test;
+
 import java.util.*;
 
 /**
@@ -27,6 +29,17 @@ public class AddingGroups {
         m.put(4,"2");
         m.put(3,"2");
         System.out.println("m = " + m);
+
+    }
+    @Test
+    public void testList(){
+        List l1=new ArrayList<>(Arrays.asList("1 2 3 4 5 6".split(" ")));
+        l1.remove(0);
+        System.out.println("l1 = " + l1);
+
+        List l2=new LinkedList<>(Arrays.asList("1 2 3 4 5 6".split(" ")));
+        l2.remove(0);
+        System.out.println("l = " + l2);
 
     }
 }
