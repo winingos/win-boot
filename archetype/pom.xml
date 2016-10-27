@@ -25,6 +25,7 @@
             <artifactId>win-boot</artifactId>
             <version>${win.boot.version}</version>
         </dependency>
+
     </dependencies>
 
 </project>
