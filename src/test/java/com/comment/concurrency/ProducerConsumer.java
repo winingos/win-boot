@@ -34,10 +34,10 @@ class Consumer implements Runnable {
     @Override
     public void run() {
         while (true) {
-            synchronized (this) {
+            synchronized (list) {
                 while (list.isEmpty()) {
                     try {
-                        this.wait();
+                        list.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -45,8 +45,8 @@ class Consumer implements Runnable {
                 }
 
                 Task task = list.remove(0);
-                System.out.println("Consumer " + task);
-                this.notifyAll();
+                System.out.println("Consumer["+ Thread.currentThread().getName() + "] got "+ task );
+                list.notifyAll();
 
             }
         }
@@ -63,10 +63,10 @@ class Producer implements Runnable {
     @Override
     public void run() {
         while (true) {
-            synchronized (this) {
+            synchronized (list) {
                 while (list.size() > 5) {
                     try {
-                        this.wait();
+                        list.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -75,8 +75,8 @@ class Producer implements Runnable {
                 }
                 Task e = new Task();
                 list.add(e);
-                this.notifyAll();
-                System.out.println("Producer " + e);
+                list.notifyAll();
+                System.out.println("Producer["+ Thread.currentThread().getName() + "] put "+ e);
 
             }
         }
@@ -89,9 +89,14 @@ class Producer implements Runnable {
         public static void main(String[] args) throws InterruptedException {
             ArrayList<Task> tasks = new ArrayList<>();
             ExecutorService es = Executors.newCachedThreadPool();
-            es.execute(new Producer(tasks));
-            es.execute(new Consumer(tasks));
-            TimeUnit.SECONDS.sleep(12);
-            es.shutdownNow();
+            for (int i = 0; i < 3; i++) {
+                es.execute(new Producer(tasks));
+            }
+            for (int i = 0; i <5; i++) {
+                es.execute(new Consumer(tasks));
+            }
+//            TimeUnit.SECONDS.sleep(12);
+//            es.shutdownNow();
+            System.out.println("over");
         }
     }
