@@ -2,6 +2,7 @@ package com.comment.concurrency;
 
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -113,11 +114,11 @@ class Consumer1 implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (Thread.currentThread().isInterrupted()){
+            if (Thread.currentThread().isInterrupted()) {
                 break;
             }
             try {
-                Task task  = buf.take();
+                Task task = buf.take();
                 System.out.println("Consumer[" + Thread.currentThread().getName() + "] got " + task);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -128,31 +129,31 @@ class Consumer1 implements Runnable {
 
 public class ProducerConsumer {
 
-        public static void main(String[] args) throws InterruptedException {
-            ArrayList<Task> tasks = new ArrayList<>();
-            ExecutorService es = Executors.newCachedThreadPool();
-            for (int i = 0; i < 3; i++) {
-                es.execute(new Producer(tasks));
-            }
-            for (int i = 0; i <5; i++) {
-                es.execute(new Consumer(tasks));
-            }
+    public static void main(String[] args) throws InterruptedException, ParseException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        ExecutorService es = Executors.newCachedThreadPool();
+        for (int i = 0; i < 3; i++) {
+            es.execute(new Producer(tasks));
+        }
+        for (int i = 0; i < 5; i++) {
+            es.execute(new Consumer(tasks));
+        }
 //            TimeUnit.SECONDS.sleep(12);
 //            es.shutdownNow();
-            System.out.println("over");
-        }
+        System.out.println("over");
+    }
 
-        @Test
-        public void testConsumer() throws InterruptedException {
-            BlockingQueue<Task> tasks = new ArrayBlockingQueue<>(5);
-            ExecutorService es = Executors.newFixedThreadPool(3);
-            es.execute(new Producer1(tasks));
-            es.execute(new Producer1(tasks));
-            Future<?> submit = es.submit(new Consumer1(tasks));
+    @Test
+    public void testConsumer() throws InterruptedException {
+        BlockingQueue<Task> tasks = new ArrayBlockingQueue<>(5);
+        ExecutorService es = Executors.newFixedThreadPool(3);
+        es.execute(new Producer1(tasks));
+        es.execute(new Producer1(tasks));
+        Future<?> submit = es.submit(new Consumer1(tasks));
 //            es.submit(new Consumer1(tasks));
 
-            TimeUnit.MILLISECONDS.sleep(190);
+        TimeUnit.MILLISECONDS.sleep(190);
 
 
-        }
     }
+}
