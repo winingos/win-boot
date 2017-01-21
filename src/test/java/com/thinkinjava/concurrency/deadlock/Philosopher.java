@@ -10,13 +10,16 @@ public class Philosopher implements Runnable {
     private Chopstick left;
     private Chopstick right;
     private final int id;
+    //
     private final int ponderFactor;
-    private Random rand = new Random(47);
+    private static Random rand = new Random(47);
 
     private void pause() throws InterruptedException {
         if(ponderFactor == 0) return;
+        int timeout = rand.nextInt(ponderFactor * 250);
+//        System.out.println("timeout value = " + timeout);
         TimeUnit.MILLISECONDS.sleep(
-                rand.nextInt(ponderFactor * 250));
+                timeout);
     }
 
     public Philosopher(Chopstick left, Chopstick right,
@@ -27,12 +30,17 @@ public class Philosopher implements Runnable {
         ponderFactor = ponder;
     }
 
+    @Override
+    public String toString() {
+        return "Philosopher"+id;
+    }
+
 
     @Override
     public void run() {
         try {
             while(!Thread.interrupted()){
-                System.out.println(this+"  thinking");
+                System.out.println(this+" thinking");
                 pause();
                 // Philosopher becomes hungry
                 System.out.println(this + " grabbing right");
