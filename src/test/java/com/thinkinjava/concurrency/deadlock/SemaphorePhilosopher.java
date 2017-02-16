@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+
 /**
  * Created by 王宁 on 2017/1/21.
  * 用信号量原语来解决哲学家进餐问题的代码
