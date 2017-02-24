@@ -27,6 +27,7 @@ public class InnerFunc {
 //        Objects.requireNonNull()
 
         Predicate<String> isEmpty = String::isEmpty;
+        
         Predicate<String> isNotEmpty = isEmpty.negate();
     }
     @Test
