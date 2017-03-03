@@ -136,6 +136,8 @@ public class PriorityBlockingQueueDemo {
         PriorityBlockingQueue<Runnable> queue =
                 new PriorityBlockingQueue<Runnable>();
         exec.execute(new PrioritizedTaskProducer(queue, exec));
+//        TimeUnit.SECONDS.sleep(5);
+//        System.out.println("queue = ");
         exec.execute(new PrioritizedTaskConsumer(queue));
     }
 }
