@@ -5,6 +5,7 @@ import java.util.concurrent.*;
 
 /**
  * Created by 王宁 on 2017/3/9.
+ * 两个线程之间数据交互,添加输出更加容易理解
  */
 class ExchangerProducer<T> implements Runnable {
     private Generator<T> generator;
@@ -23,14 +24,19 @@ class ExchangerProducer<T> implements Runnable {
             while (!Thread.interrupted()) {
                 for (int i = 0; i < ExchangerDemo.size; i++)
                     holder.add(generator.next());
-// Exchange full for empty:
+                // Exchange full for empty:
+                System.out.println("ExchangerProducer exchang before = " + holder);
                 holder = exchanger.exchange(holder);
+                System.out.println("ExchangerProducer exchang after = " + holder);
             }
         } catch (InterruptedException e) {
-// OK to terminate this way.
+            // OK to terminate this way.
         }
     }
 }
+
+
+
 
 class ExchangerConsumer<T> implements Runnable {
     private Exchanger<List<T>> exchanger;
@@ -45,7 +51,9 @@ class ExchangerConsumer<T> implements Runnable {
     public void run() {
         try {
             while (!Thread.interrupted()) {
+                System.out.println("ExchangerConsumer exchang before " + holder);
                 holder = exchanger.exchange(holder);
+                System.out.println("ExchangerConsumer exchang after " + holder);
                 for (T x : holder) {
                     value = x; // Fetch out value
                     holder.remove(x); // OK for CopyOnWriteArrayList
@@ -59,8 +67,8 @@ class ExchangerConsumer<T> implements Runnable {
 }
 
 public class ExchangerDemo {
-    static int size = 10;
-    static int delay = 5; // Seconds
+    static int size = 3;
+    static int delay = 1; // Seconds
 
     public static void main(String[] args) throws Exception {
         if (args.length > 0)
