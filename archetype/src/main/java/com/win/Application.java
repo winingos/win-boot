@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class Application {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Application.class);
+        new SpringApplication().run(Application.class,args);
 
     }
 }

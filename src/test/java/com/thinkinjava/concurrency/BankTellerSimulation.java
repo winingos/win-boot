@@ -183,8 +183,7 @@ public class BankTellerSimulation {
                 new CustomerLine(MAX_LINE_SIZE);
         exec.execute(new CustomerGenerator(customers));
         // Manager will add and remove tellers as necessary:
-        exec.execute(new TellerManager(
-                exec, customers, ADJUSTMENT_PERIOD));
+        exec.execute(new TellerManager(exec, customers, ADJUSTMENT_PERIOD));
         if(args.length > 0) // Optional argument
             TimeUnit.SECONDS.sleep(new Integer(args[0]));
         else {
