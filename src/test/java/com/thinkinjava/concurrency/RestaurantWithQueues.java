@@ -16,11 +16,11 @@ import java.util.concurrent.*;
 class Order { // (A data-transfer object)
     private static int counter = 0;
     private final int id = counter++;
-    private final Customer0 customer;
+    private final Customer_ customer;
     private final WaitPerson waitPerson;
     private final Food food;
 
-    public Order(Customer0 cust, WaitPerson wp, Food f) {
+    public Order(Customer_ cust, WaitPerson wp, Food f) {
         customer = cust;
         waitPerson = wp;
         food = f;
@@ -30,7 +30,7 @@ class Order { // (A data-transfer object)
         return food;
     }
 
-    public Customer0 getCustomer0() {
+    public Customer_ getCustomer() {
         return customer;
     }
 
@@ -68,7 +68,7 @@ class Plate {
     }
 }
 
-class Customer0 implements Runnable {
+class Customer_ implements Runnable {
     private static int counter = 0;
     private final int id = counter++;
     private final WaitPerson waitPerson;
@@ -76,7 +76,7 @@ class Customer0 implements Runnable {
     private SynchronousQueue<Plate> placeSetting =
             new SynchronousQueue<Plate>();
 
-    public Customer0(WaitPerson w) {
+    public Customer_(WaitPerson w) {
         waitPerson = w;
     }
 
@@ -103,7 +103,7 @@ class Customer0 implements Runnable {
     }
 
     public String toString() {
-        return "Customer0 " + id + " ";
+        return "Customer " + id + " ";
     }
 }
 
@@ -118,7 +118,7 @@ class WaitPerson implements Runnable {
         restaurant = rest;
     }
 
-    public void placeOrder(Customer0 cust, Food food) {
+    public void placeOrder(Customer_ cust, Food food) {
         try {
             // Shouldn’t actually block because this is
             // a LinkedBlockingQueue with no size limit:
@@ -135,8 +135,8 @@ class WaitPerson implements Runnable {
                 Plate plate = filledOrders.take();
                 System.out.print(this + "received " + plate +
                         " delivering to " +
-                        plate.getOrder().getCustomer0());
-                plate.getOrder().getCustomer0().deliver(plate);
+                        plate.getOrder().getCustomer()+"--");
+                plate.getOrder().getCustomer().deliver(plate);
             }
         } catch (InterruptedException e) {
             System.out.print(this + " interrupted");
@@ -171,9 +171,9 @@ class Chef implements Runnable {
                 order.getWaitPerson().filledOrders.put(plate);
             }
         } catch (InterruptedException e) {
-            System.out.print(this + " interrupted");
+            System.out.println(this + " interrupted");
         }
-        System.out.print(this + " off duty");
+        System.out.println(this + " off duty");
     }
 
     public String toString() {
@@ -211,14 +211,14 @@ class Restaurant implements Runnable {
                 // A new customer arrives; assign a WaitPerson:
                 WaitPerson wp = waitPersons.get(
                         rand.nextInt(waitPersons.size()));
-                Customer0 c = new Customer0(wp);
+                Customer_ c = new Customer_(wp);
                 exec.execute(c);
                 TimeUnit.MILLISECONDS.sleep(100);
             }
         } catch (InterruptedException e) {
-            System.out.print("Restaurant interrupted");
+            System.out.println("Restaurant interrupted");
         }
-        System.out.print("Restaurant closing");
+        System.out.println("Restaurant closing");
     }
 }
 
@@ -231,7 +231,7 @@ public class RestaurantWithQueues {
         if (args.length > 0) // Optional argument
             TimeUnit.SECONDS.sleep(new Integer(args[0]));
         else {
-            System.out.print("Press ‘Enter’ to quit");
+            System.out.println("Press ‘Enter’ to quit");
             System.in.read();
         }
         exec.shutdownNow();
