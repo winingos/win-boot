@@ -150,7 +150,7 @@ abstract class PetCreator {
 }
 
 class LiteralPetCreator extends PetCreator {
-    //@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public static final List<Class<? extends Pet>> allTypes = Collections.unmodifiableList(
             Arrays.asList(Pet.class, Dog.class, Cat.class, Mutt.class, EgyptianMau.class));
     private static final List<Class<? extends Pet>> types = allTypes.subList(
@@ -167,11 +167,11 @@ public class TypeCounter extends HashMap<Class<?>, Integer> {
     public TypeCounter(Class<?> baseType) {
         this.baseType = baseType;
     }
-    public void count(Class<?> type) {
-//        Class<?> type = obj.getClass();
+    public void count(Object obj) {
+        Class<?> type = obj.getClass();
         if (!baseType.isAssignableFrom(type)) {
             throw new RuntimeException(
-                    type + " incorrect type " + type + ", should be type or subtype of " + baseType);
+                    obj + " incorrect type " + type + ", should be type or subtype of " + baseType);
         }
         countClass(type);
     }
@@ -199,8 +199,8 @@ public class TypeCounter extends HashMap<Class<?>, Integer> {
 
     public static void main(String[] args) {
         TypeCounter counter = new TypeCounter(Pet.class);
-        List<Class<? extends Pet>> list = LiteralPetCreator.allTypes;
-        for (Class<? extends Pet> pet : list) {
+        List<Pet> list = new LiteralPetCreator().arrayList(100);
+        for (Pet pet : list) {
             counter.count(pet);
         }
         System.out.println("list = " + counter);
