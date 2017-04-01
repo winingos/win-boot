@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Created by 王宁 on 2017/4/1.
+ * http://www.ziwenxie.site/2017/03/22/java-reflection/
  * 解决泛型擦除
  * 我们有一个泛型集合类List<Class<? extends Pet>>，我们需要统计出这个集合类中每种具体的Pet有多少个
  * 由于Java的泛型擦除，注意类似List<? extends Pet>的做法肯定是不行的,因为编译器做了静态类型检查之后
