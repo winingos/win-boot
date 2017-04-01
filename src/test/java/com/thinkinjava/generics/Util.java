@@ -130,6 +130,7 @@ class GenericReading {
 }
 
 /**
+ * S super T extends E 要保证可以一直向上转型就可以了
  * PECS原则
  * “Producer Extends” - 如果你需要一个只读List，用它来produce T，那么使用? extends T。
  * “Consumer Super” - 如果你需要一个只写List，用它来consume T，那么使用? super T。
