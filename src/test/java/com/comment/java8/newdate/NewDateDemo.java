@@ -2,6 +2,7 @@ package com.comment.java8.newdate;
 
 
 import org.junit.Test;
+import sun.util.calendar.ZoneInfo;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -89,6 +90,19 @@ public class NewDateDemo {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd,yyyy - HH:mm");
         LocalDateTime parse = LocalDateTime.parse("03 03,2015 - 07:13", formatter);
         System.out.println(parse);
+
+        /**
+         * 日期,date 互相转换
+         */
+        LocalDateTime time = LocalDateTime.now();
+        long l = time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        LocalDateTime t1 = Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        System.out.println("t1 = " + time.equals(t1));
+        long l1 = time.atZone(ZoneId.systemDefault()).getLong(ChronoField.MILLI_OF_SECOND);
+        LocalDateTime time1 = new java.util.Date(l1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        System.out.println("time1 = " + time1);
+        System.out.println("time = " + time);
+
     }
     @Test
     public void testJS()throws Throwable{
