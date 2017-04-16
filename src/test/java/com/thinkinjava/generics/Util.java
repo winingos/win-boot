@@ -144,6 +144,8 @@ class GenericsAndCovariance {
          * 所以对于实现了<? extends T>的集合类只能将它视为Producer向外提供(get)元素
          */
         List<? extends Fruit> flist = new ArrayList<Apple>();
+        List<? extends Fruit> flist1 = new ArrayList<Orange>();
+        List<? extends Fruit> flist2 = new ArrayList<Fruit>();
         // Compile Error: can't add any type of object:
 //         flist.add(new Apple())
 //         flist.add(new Orange())
@@ -235,5 +237,22 @@ class Node<T extends Comparable<T>> {
         Class c1 = new ArrayList<String>().getClass();
         Class c2 = new ArrayList<Integer>().getClass();
         System.out.println(c1 == c2); // true
+        rtti1(new ArrayList<Integer>());
     }
+
+    public static <E> void rtti(List<E> list) {
+        if (list instanceof ArrayList<?>) {  // compile-time error
+            // ...
+            System.out.println("list = " + list);
+        }
+    }
+
+    public static <T>  void rtti1(List<? extends T> list) {
+        if (list instanceof ArrayList<?>) {  // OK; instanceof requires a reifiable type
+            // ...
+            System.out.println("list1 = " + list);
+        }
+        rtti(new ArrayList<String>());
+    }
+
 }

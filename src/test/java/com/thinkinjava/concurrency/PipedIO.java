@@ -1,8 +1,6 @@
 package com.thinkinjava.concurrency;
 
-import java.io.IOException;
-import java.io.PipedReader;
-import java.io.PipedWriter;
+import java.io.*;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -30,13 +28,17 @@ class Sender implements Runnable{
 }
 class Receiver implements Runnable{
     private PipedReader in;
+    InputStream ins;
+
     public Receiver(Sender sender) throws IOException {
-        in = new PipedReader(sender.getPipedWriter());
+        BufferedInputStream stream = new BufferedInputStream(System.in);
+
+        this.in = new PipedReader(sender.getPipedWriter());
     }
     @Override
     public void run() {
         try {
-            while(true) {
+            while(true) { 
                 // Blocks until characters are there:
                 System.out.println("Read: " + (char)in.read() + ", ");
             }

@@ -139,13 +139,13 @@ class WaitPerson implements Runnable {
                 plate.getOrder().getCustomer().deliver(plate);
             }
         } catch (InterruptedException e) {
-            System.out.print(this + " interrupted");
+            System.out.print(this + " interrupted ");
         }
-        System.out.print(this + " off duty");
+        System.out.print(this + " off duty  ");
     }
 
     public String toString() {
-        return "WaitPerson " + id + " ";
+        return " WaitPerson " + id + " ";
     }
 }
 
