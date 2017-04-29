@@ -12,27 +12,34 @@ public class CarBuilder {
     public static class Car {
         private final int id;
         private boolean engine = false, driveTrain = false, wheels = false;
+
         public Car(int idn) {
             id = idn;
         }
+
         // Empty Car object:
         public Car() {
             id = -1;
         }
+
         public synchronized int getId() {
             return id;
         }
+
         public synchronized void addEngine() {
             engine = true;
         }
+
         public synchronized void addDriveTrain() {
             driveTrain = true;
         }
+
         public synchronized void addWheels() {
             wheels = true;
         }
+
         public synchronized String toString() {
-            return "Car " + id + " [" + " engine: " + engine + " driveTrain: " + driveTrain+ " wheels: " + wheels + " ]";
+            return "Car " + id + " [" + " engine: " + engine + " driveTrain: " + driveTrain + " wheels: " + wheels + " ]";
         }
     }
 
@@ -67,9 +74,10 @@ public class CarBuilder {
     public static class Assembler implements Runnable {
         private CarQueue chassisQueue, finishingQueue;
         private Car car;
-        private CyclicBarrier barrier = new CyclicBarrier(4,()->{
-            System.out.println("\n this is barrier of Assembler who has car ID "+this.car.getId()+" put to finishingQueue \n");
-        });
+        private CyclicBarrier barrier = new CyclicBarrier(4,
+                () ->System.out.println("\n this is barrier of Assembler who has car ID "
+                        + this.car.getId() + " put to finishingQueue \n")
+        );
         private RobotPool robotPool;
 
         public Assembler(CarQueue cq, CarQueue fq, RobotPool rp) {
@@ -111,6 +119,7 @@ public class CarBuilder {
 
     public static abstract class Robot implements Runnable {
         private RobotPool pool;
+
         public Robot(RobotPool p) {
             pool = p;
         }
@@ -150,7 +159,7 @@ public class CarBuilder {
             System.out.print(this + " off");
         }
 
-        private synchronized void  powerDown() throws InterruptedException {
+        private synchronized void powerDown() throws InterruptedException {
             engage = false;
             assembler = null; // Disconnect from the Assembler
             // Put ourselves back in the available pool:
@@ -175,20 +184,25 @@ public class CarBuilder {
         }
     }
 
-   static class Reporter implements Runnable {
+    static class Reporter implements Runnable {
         private CarQueue carQueue;
-        public Reporter(CarQueue cq) { carQueue = cq; }
-        public void run() {
+
+        public Reporter(CarQueue cq) {
+            carQueue = cq;
+        }
+
+       public void run() {
             try {
-                while(!Thread.interrupted()) {
+                while (!Thread.interrupted()) {
                     System.out.println(carQueue.take());
                 }
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.out.print("Exiting Reporter via interrupt");
             }
             System.out.print("Reporter off");
         }
     }
+
     static class DriveTrainRobot extends Robot {
         public DriveTrainRobot(RobotPool pool) {
             super(pool);
@@ -220,7 +234,7 @@ public class CarBuilder {
             notifyAll();
         }
 
-        public synchronized void hire(Class<? extends Robot> robotType, Assembler d)throws InterruptedException {
+        public synchronized void hire(Class<? extends Robot> robotType, Assembler d) throws InterruptedException {
             for (Robot r : pool)
                 if (r.getClass().equals(robotType)) {
                     pool.remove(r);
@@ -238,7 +252,7 @@ public class CarBuilder {
     }
 
     public static void main(String[] args) throws Exception {
-        CarQueue chassisQueue = new CarQueue(),finishingQueue = new CarQueue();
+        CarQueue chassisQueue = new CarQueue(), finishingQueue = new CarQueue();
         ExecutorService exec = Executors.newCachedThreadPool();
         RobotPool robotPool = new RobotPool();
         exec.execute(new EngineRobot(robotPool));
@@ -247,6 +261,8 @@ public class CarBuilder {
         exec.execute(new Assembler(chassisQueue, finishingQueue, robotPool));
         exec.execute(new Reporter(finishingQueue));
         // Start everything running by producing chassis:
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("======================= start =============== ");
         exec.execute(new ChassisBuilder(chassisQueue));
         TimeUnit.SECONDS.sleep(7);
         exec.shutdownNow();
