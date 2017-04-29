@@ -73,12 +73,19 @@ public class HorseRace {
                 for (Horse horse : horses)
                     System.out.println(horse.tracks());
 
-                for (Horse horse : horses)
+
+                for (Horse horse : horses) {
+
                     if (horse.getStrides() >= FINISH_LINE) {
-                        System.out.println(horse + "won!");
+                        //find bug 如果有两个同时过线,按以前的逻辑,很容易选id小的,
+                        //System.out.println(horse + "won!");
+                        //fix 选择过线中最大的
+                        Horse horse1 = horses.stream().max((a, b) -> a.getStrides() - b.getStrides()).get();
+                        System.out.println(horse1 + "won!");
                         exec.shutdownNow();
                         return;
                     }
+                }
 
                 try {
                     TimeUnit.MILLISECONDS.sleep(pause);
@@ -87,7 +94,7 @@ public class HorseRace {
                 }
             }
         });
-        for(int i = 0; i < nHorses; i++) {
+        for (int i = 0; i < nHorses; i++) {
             Horse horse = new Horse(barrier);
             horses.add(horse);
             exec.execute(horse);
@@ -97,11 +104,11 @@ public class HorseRace {
     public static void main(String[] args) {
         int nHorses = 7;
         int pause = 200;
-        if(args.length > 0) { // Optional argument
+        if (args.length > 0) { // Optional argument
             int n = new Integer(args[0]);
             nHorses = n > 0 ? n : nHorses;
         }
-        if(args.length > 1) { // Optional argument
+        if (args.length > 1) { // Optional argument
             int p = new Integer(args[1]);
             pause = p > -1 ? p : pause;
         }
