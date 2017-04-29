@@ -1,6 +1,10 @@
 package com.thinkinjava.concurrency;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,6 +17,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by Administrator on 17/4/16.
  * Comparing the performance of explicit Locks
  * and Atomics versus the synchronized keyword
+ * 为基准测试:1.有多个任务尝试访问互斥代码区
+ *            2.防止编译器去预测结果的可能性(编译时,运行时优化)
  */
 
 
@@ -29,7 +35,7 @@ abstract class Accumulator{
     protected long duration = 0;
     protected String id = "error";
     protected final static int SIZE = 100000;
-    protected static int[] preLoaded = new int[SIZE];
+    protected static Integer[] preLoaded = new Integer[SIZE];
     static {
         // Load the array of random numbers:
         Random rand = new Random(47);
@@ -38,6 +44,12 @@ abstract class Accumulator{
     }
     public abstract void accumulate();
     public abstract long read();
+    //由于baseline,以及atomic 在取prdLoaded中的值时index在多线程中可能会越界,需要用 sync 关键字保证 不会出现ArrayIndexOutOfBoundsException
+    public synchronized int  getValue(){
+        if(++index>=SIZE)
+            index=0;
+        return preLoaded[index];
+    }
     private class Modifier implements Runnable {
         public void run() {
             for(long i = 0; i < cycles; i++)
@@ -75,8 +87,7 @@ abstract class Accumulator{
         duration = System.nanoTime() - start;
         System.out.printf("%-13s: %13d\n", id, duration);
     }
-    public static void
-    report(Accumulator acc1, Accumulator acc2) {
+    public static void report(Accumulator acc1, Accumulator acc2) {
         System.out.printf("%-22s: %.2f\n", acc1.id + "/" + acc2.id,
                 (double)acc1.duration/(double)acc2.duration);
     }
@@ -85,8 +96,8 @@ abstract class Accumulator{
 class BaseLine extends Accumulator {
     { id = "BaseLine"; }
     public void accumulate() {
-        value += preLoaded[index++];
-        if(index >= SIZE) index = 0;
+        value += getValue();
+//        if(index >= SIZE) index = 0;
     }
     public long read() { return value; }
 }
@@ -94,8 +105,8 @@ class BaseLine extends Accumulator {
 class SynchronizedTest extends Accumulator {
     { id = "synchronized"; }
     public synchronized void accumulate() {
-        value += preLoaded[index++];
-        if(index >= SIZE) index = 0;
+        value += getValue();
+//        if(index >= SIZE) index = 0;
     }
     public synchronized long read() {
         return value;
@@ -132,10 +143,10 @@ class AtomicTest extends Accumulator {
         // Oops! Relying on more than one Atomic at
         // a time doesn’t work. But it still gives us
         // a performance indicator:
-        int i = index.getAndIncrement();
-        value.getAndAdd(preLoaded[i]);
-        if(++i >= SIZE)
-            index.set(0);
+//        int i = getValue();
+        value.getAndAdd(getValue());
+//        if(++i >= SIZE)
+//            index.set(0);
     }
     public long read() { return value.get(); }
 }
@@ -174,5 +185,7 @@ public class SynchronizationComparisons {
             Accumulator.cycles *= 2;
         }
         Accumulator.exec.shutdown();
+        String[] test=new String[]{};
+        String s=test[2];
     }
 }

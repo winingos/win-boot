@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 /**
  * Created by Administrator on 17/4/16.
  * The dangers of microbenchmarking
+ * 微基准测试的问题
+ * 微基准测试:通常是指在隔离的.脱离上下文环境的情况下对某个特性进行性能测试
  */
 
 abstract class Incrementable {
