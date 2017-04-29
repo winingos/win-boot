@@ -67,7 +67,9 @@ public class CarBuilder {
     public static class Assembler implements Runnable {
         private CarQueue chassisQueue, finishingQueue;
         private Car car;
-        private CyclicBarrier barrier = new CyclicBarrier(4);
+        private CyclicBarrier barrier = new CyclicBarrier(4,()->{
+            System.out.println("\n this is barrier of Assembler who has car ID "+this.car.getId()+" put to finishingQueue \n");
+        });
         private RobotPool robotPool;
 
         public Assembler(CarQueue cq, CarQueue fq, RobotPool rp) {
