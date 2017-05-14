@@ -116,8 +116,10 @@ class GeneratorsTest {
 
     public static void main(String[] args) {
         //test(CountingGenerator.class);
-        GeneratorsTest.size = 30;
-        test(RandomGenerator.class);
+//        GeneratorsTest.size = 30;
+//        test(RandomGenerator.class);
+        SkipGenerator.step=3;
+        test(SkipGenerator.class);
     }
 }
 

@@ -101,5 +101,6 @@ class TestArrayGeneration {
 
         double[] a8 = ConvertTo.primitive(Generated.array(Double.class, new RandomGenerator.Double(), size));
         print("a8 = " + Arrays.toString(a8));
+
     }
 }
