@@ -1,5 +1,7 @@
 package com.thinkinjava.array;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Administrator on 17/5/14.
  */
@@ -95,6 +97,16 @@ public class CountingGenerator {
         }
     }
 
+    public static class BigDecimal implements Generator<java.math.BigDecimal> {
+        private double value = 0.0;
+
+        public java.math.BigDecimal next() {
+            java.math.BigDecimal count = new java.math.BigDecimal(0);
+            count.add(new java.math.BigDecimal(1.03));
+            return count;
+        }
+    }
+
 }
 
 class GeneratorsTest {
@@ -115,11 +127,11 @@ class GeneratorsTest {
     }
 
     public static void main(String[] args) {
-        //test(CountingGenerator.class);
+        test(CountingGenerator.class);
 //        GeneratorsTest.size = 30;
 //        test(RandomGenerator.class);
-        SkipGenerator.step=3;
-        test(SkipGenerator.class);
+//        SkipGenerator.step=3;
+//        test(SkipGenerator.class);
     }
 }
 
