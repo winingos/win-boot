@@ -6,6 +6,7 @@ import lombok.Data;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.Properties;
 
 /**
  * Unit test for simple ScheduledTasks.
@@ -67,6 +68,8 @@ public class AppTest
         System.out.println("bean = " + bean);
         System.out.println(dest);
         System.out.println(dest1);
+        String property = System.getProperty("user.dir");
+        System.out.println("property = " + property);
     }
 
 

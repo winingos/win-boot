@@ -38,7 +38,7 @@ public abstract class Tester<C> {
                 nReaders + "r " + nWriters + "w";
         this.nReaders = nReaders;
         this.nWriters = nWriters;
-        writeData = Generated.array(Integer.class,new RandomGenerator.Integer(), containerSize);
+        writeData = Generated.arrayT(Integer.class,new RandomGenerator.Integer(), containerSize);
         for (int i = 0; i < testReps; i++) {
             runTest();
             readTime = 0;
@@ -108,18 +108,19 @@ class Generated {
         return  objects;
     }
 
-//    static <T> T[] arrayT(Class clazz, RandomGenerator.Integer gen,int size) {
-////        T[] objects  = new Object[size];
-////        for (int i = 0; i < objects.length; i++) {
-////            objects[i]=gen.next();
-////
-////        }
-//        ArrayList<Object> ts = new ArrayList<>(size);
-//        for (int i = 0; i < size; i++) {
-//             ts.add(i,gen.next());
+    static <T> T[] arrayT(Class clazz, RandomGenerator.Integer gen,int size) {
+//        T[] objects  = new Object[size];
+//        for (int i = 0; i < objects.length; i++) {
+//            objects[i]=gen.next();
+//
 //        }
-//        return  ts.toArray();
-//    }
+        ArrayList<Object> ts = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+             ts.add(i,gen.next());
+        }
+        T[] a=(T[])Array.newInstance(clazz,size);
+        return  ts.toArray(a);
+    }
 }
 
 abstract class RandomGenerator<T> {

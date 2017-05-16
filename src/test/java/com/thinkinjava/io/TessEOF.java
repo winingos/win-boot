@@ -1,5 +1,7 @@
 package com.thinkinjava.io;
 
+import org.junit.Test;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -15,4 +17,12 @@ public class TessEOF {
             System.out.print((char)in.readByte());
         }
     }
+    @Test
+    public void test2(){
+
+        String property = System.getProperty("user.dir");
+        System.out.println("property = " + property);
+        System.out.write(23);
+    }
+
 }

@@ -1,14 +1,49 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
-       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-       <!--xmlns:context="http://www.springframework.org/schema/context"-->
-       <!--xsi:schemaLocation="-->
-	<!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd-->
-	<!--http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"-->
-       <!--default-autowire="byName">-->
-    <!--&lt;!&ndash;<import resource="spring-mybatis.xml"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<import resource="spring-remote-client.xml"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<context:component-scan base-package="mx.api.service">&ndash;&gt;-->
-        <!--&lt;!&ndash;<context:exclude-filter type="regex" expression="mx.api.service.dto.*"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;</context:component-scan>&ndash;&gt;-->
-<!--</beans>-->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       default-autowire="byName">
+    <!--<import resource="spring-mybatis.xml"/>-->
+    <!--<import resource="spring-remote-client.xml"/>-->
+    <context:component-scan base-package="com.win.controller.*"/>
+        <!--<context:exclude-filter type="regex" expression="mx.api.service.dto.*"/>-->
+    <!--</context:component-scan>-->
+
+    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+        <!--<property name="customEditors">-->
+            <!--<map>-->
+                <!--<entry key="java.util.Date">-->
+                    <!--<bean  class="com.win.controller.handler.DatePropertyEditor"></bean>-->
+                <!--</entry>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--自定时Bean属性编辑器-->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="propertyEditorRegistrars">
+            <list>
+                    <bean  class="com.win.controller.handler.DatePropertyEditorRegistrar"></bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--自定义BeanFactoryPostProcessor-->
+    <bean id="bfpp" class="com.win.controller.handler.ObscenityRemovingBeanFactoryPostProcessor">
+        <property name="obscenities">
+            <set>
+                <value>bollocks</value>
+                <value>winky</value>
+                <value>bum</value>
+                <value>Microsoft</value>
+            </set>
+        </property>
+    </bean>
+    <bean id="simpleBean" class="com.win.controller.handler.SimpleBean">
+        <property name="connectionString" value="bollocks"/>
+        <property name="password" value="imaginecup"/>
+        <property name="username" value="Microsoft"/>
+    </bean>
+</beans>
