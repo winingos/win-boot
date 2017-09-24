@@ -12,7 +12,7 @@ public class InetAddressTest {
             String host = args[0];
             InetAddress[] addr = InetAddress.getAllByName(host);
             for (InetAddress address : addr) {
-                System.out.println( address);
+                System.out.println(address);
             }
         }else{
             InetAddress local = InetAddress.getLocalHost();
