@@ -46,4 +46,5 @@
         <property name="password" value="imaginecup"/>
         <property name="username" value="Microsoft"/>
     </bean>
+    <bean class="com.win.controller.handler.MyInstantiationAwareBeanPostProcessor"/>
 </beans>
