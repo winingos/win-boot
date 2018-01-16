@@ -12,7 +12,7 @@
 
     <groupId>com.win</groupId>
     <artifactId>win-boot</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>${win.boot.version}</version>
     <build>
         <plugins>
@@ -24,18 +24,34 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.win.aop.toy.PrefMonAgent</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>com.win.aop.toy.PrefMonAgent</Premain-Class>
+                            <Boot-Class-Path>/Users/Administrator/.m2/repository/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA.jar</Boot-Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>archetype</module>
-        <!--<module>spr-framework</module>-->
-    </modules>
+    <!--<modules>-->
+        <!--<module>archetype</module>-->
+        <!--&lt;!&ndash;<module>spr-framework</module>&ndash;&gt;-->
+    <!--</modules>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <!--<version.slf4j>1.7.6</version.slf4j>-->
-        <win.boot.version>1.0-SNAPSHOT</win.boot.version>
+        <win.boot.version>1.0</win.boot.version>
         <!-- use parent pom settings -->
         <version.jdk>1.8</version.jdk>
         <!--<version.lark>0.9.8</version.lark>-->
@@ -75,7 +91,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.6</version>
+            <version>1.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
@@ -121,6 +137,5 @@
         <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
         <!--</dependency>-->
     </dependencies>
-
 
 </project>
