@@ -1,5 +1,6 @@
 package com.comment.reflect;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -205,6 +206,17 @@ public class TypeCounter extends HashMap<Class<?>, Integer> {
             counter.count(pet);
         }
         System.out.println("list = " + counter);
+
+        Double v = Double.parseDouble("4.9E-324");
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setGroupingUsed(true);
+        String dou_str = nf.format(v);
+        System.out.println(dou_str);
+
+//        String str="mobile content cinema_code";
+//        List<String> strings =new ArrayList<>(Arrays.asList(str.split(" ")));
+//        strings.sort(String.CASE_INSENSITIVE_ORDER);
+//        System.out.println(Arrays.deepToString(strings.toArray()));
 
     }
 }

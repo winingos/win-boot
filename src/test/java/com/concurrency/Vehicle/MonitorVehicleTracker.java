@@ -1,6 +1,6 @@
 package com.concurrency.Vehicle;
 
-import com.concurrency.annotation.GuardeBy;
+import com.concurrency.annotation.GuardedBy;
 import com.concurrency.annotation.NotThreadSafe;
 import com.concurrency.annotation.ThreadSafe;
 
@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @ThreadSafe
 public class MonitorVehicleTracker {
-    @GuardeBy("this")
+    @GuardedBy("this")
     private final Map<String,MutablePoint> locations;
 
     public MonitorVehicleTracker(Map<String,MutablePoint> locations){

@@ -36,5 +36,7 @@ public class InstrumentedHashSet<E> extends HashSet<E> {
         InstrumentedHashSet<String>  s = new InstrumentedHashSet<>();
         s.addAll(Lists.newArrayList("snap","carckle","pop"));
         System.out.println(" count= " + s.getAddCount());
+        int length = "\",\"showtimeAreaSeatNumByAreas\":[{\"areaId\":\"1\",\"areaSeatNum\":101,\"enterTime\":1505292652441,\"saleSeatNum\":98}]}".length();
+        System.out.println("length = " + length);
     }
 }

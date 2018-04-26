@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by Administrator on 17/7/29.
- * This program implement a multithreaded server that
+ * This program implement a mutilThread server that
  * listens to port 8189 and echos back all client input
  */
 public class ThreadedEchoServer {
@@ -57,6 +57,7 @@ class ThreadedEchoHandler implements Runnable {
            boolean done=false;
            while (!done&&in.hasNextLine()){
                String line = in.nextLine();
+               System.out.println("client:" + line);
                out.println("Echo:"+line);
                if (line.trim().equalsIgnoreCase("bye")){
                    done=true;

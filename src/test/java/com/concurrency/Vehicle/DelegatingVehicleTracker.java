@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by 王宁 on 2018/2/24.
@@ -18,12 +19,27 @@ public class DelegatingVehicleTracker {
     private final Map<String, Point> unmodifiableMap;
 
     public DelegatingVehicleTracker(Map<String, Point> points) {
+        CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+        list.add("");
         locations = new ConcurrentHashMap<String, Point>(points);
         unmodifiableMap = Collections.unmodifiableMap(locations);
     }
+
+    /**
+     * live" view
+     * @return
+     */
     public Map<String, Point> getLocations(){
         return unmodifiableMap;
 
+    }
+
+    /**
+     *  shallow copy to snapshot
+     * @return
+     */
+    public Map<String,Point> getLocationsSnapshot(){
+        return Collections.unmodifiableMap(new HashMap<>(locations));
     }
 
     public Point getLocation(String id){
@@ -35,6 +51,8 @@ public class DelegatingVehicleTracker {
             throw new IllegalArgumentException("invalid vehicle name: " + id);
         }
     }
+
+
 }
 @Immutable
 class Point{

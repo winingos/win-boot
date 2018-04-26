@@ -181,7 +181,7 @@ class InterruptibleSocketFrame extends JFrame {
                 while (counter < 100) {
                     counter++;
                     if (counter <= 10) out.println(counter);
-                    TimeUnit.MILLISECONDS.sleep(1000);
+                    TimeUnit.MILLISECONDS.sleep(100);
                 }
                 incoming.close();
                 messages.append("Closing server\n");
