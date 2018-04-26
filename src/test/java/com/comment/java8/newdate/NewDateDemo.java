@@ -6,13 +6,18 @@ import sun.util.calendar.ZoneInfo;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.sound.midi.Soundbank;
 import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+
+import static java.time.temporal.TemporalQueries.localDate;
 
 /**
  * Created by ning.wang on 2016/3/1.
@@ -96,12 +101,14 @@ public class NewDateDemo {
          */
         LocalDateTime time = LocalDateTime.now();
         long l = time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-        LocalDateTime t1 = Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault()).toLocalDateTime();
-        System.out.println("t1 = " + time.equals(t1));
+        LocalDateTime t1 = Instant.ofEpochMilli(1493002200000L).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime time2 = LocalDateTime.ofInstant(Instant.ofEpochMilli(l), ZoneId.systemDefault());
+        System.out.println("t1 = " + t1);
         long l1 = time.atZone(ZoneId.systemDefault()).getLong(ChronoField.MILLI_OF_SECOND);
         LocalDateTime time1 = new java.util.Date(l1).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         System.out.println("time1 = " + time1);
         System.out.println("time = " + time);
+        System.out.println("time1 = " + t1.equals(time2));
 
     }
     @Test
@@ -111,7 +118,20 @@ public class NewDateDemo {
 
         System.out.println("script = " + script.getClass().getName());
         System.out.println("re:"+script.eval("function f() {return 1;}; f()+1;"));
-
-
+        LocalDateTime date = LocalDateTime.of(2017, 3, 17,0,0,0);
+        LocalDate date1=LocalDate.of(2017,3,31);
+        long l1 = date1.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long l = date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        System.out.println("date = " + date);
+        System.out.println("l = " + l1);
+        System.out.println("l = " + (l==l1));
+        List<Integer> list = Arrays.asList(1, 2, 5, 10, 9, 8, 3);
+        list.sort((a,b)->a-b);
+        System.out.println("list = " + Arrays.deepToString(list.toArray()));
+        System.out.println("3333"+String.format(" %02d", date.getMonth().getValue()));
+    }
+    @Test
+    public void byteTest(){
+        System.out.println("hot_movies".getBytes());
     }
 }
