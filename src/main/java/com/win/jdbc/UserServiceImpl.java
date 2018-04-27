@@ -19,13 +19,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         jdbcTemplate.update("insert into user(name,age,sex)values(?,?,?)",
-                new Object[]{user.getName(), user.getAge(), user.getSex(),
-                        new int[]{Types.VARCHAR, Types.INTEGER, Types.VARCHAR}
-                });
+                new Object[]{user.getName(), user.getAge(), user.getSex()},
+                new int[]{Types.VARCHAR, Types.INTEGER, Types.VARCHAR}
+        );
     }
 
     @Override
     public List<User> getUsers() {
-        return jdbcTemplate.query("select * from user",new UserMapper());
+        return jdbcTemplate.query("select * from user", new UserMapper());
     }
 }

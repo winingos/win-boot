@@ -16,8 +16,8 @@
     <!-- 根据 Bean 的名字自动实现代理拦截 -->
 <!--配置数据源-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.sqlite.JDBC"/>
-        <property name="url" value="jdbc:sqlite:springDB.db"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/test"/>
         <!--mysql账号:user/muser;root/mysql-->
         <property name="username" value="root"/>
         <property name="password" value="mysql"/>
