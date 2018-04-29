@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.win.jdbc.batis.BlogMapper">
+    <select id="selectBlog" parameterType="int"
+            resultType="com.win.jdbc.batis.Blog">
+        SELECT *
+        FROM BLOG
+        WHERE id = #{id}
+    </select>
+
+
+    <insert id="insertBlog" parameterType="Blog">
+        INSERT INTO BLOG(id,content)
+        VALUES(#{id}, #{content})
+    </insert>
+
+    <select id="getBlogList" resultType="com.win.jdbc.batis.Blog">
+        SELECT * FROM BLOG
+    </select>
+
+    <update id="updateBlog" parameterType="Blog">
+        UPDATE BLOG
+        SET
+        content=
+        #{content}
+        WHERE
+        id =
+        #{id}
+    </update>
+
+    <delete id="deleteBlog" parameterType="int">
+        DELETE FROM BLog WHERE id = #{id}
+    </delete>
+
+
+</mapper>
