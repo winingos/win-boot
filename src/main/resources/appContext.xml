@@ -18,18 +18,18 @@
 
     <!-- 根据 Bean 的名字自动实现代理拦截 -->
 
-    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-        <property name="interceptorNames">
-            <!-- 我们的监控方法 -->
-            <list>
-                <value>aopallianceTest</value>
-            </list>
-        </property>
-        <property name="beanNames">
-            <list>
-                <!-- 添加到其中的 Bean 自动就被代理拦截了 -->
-                <value>testBean</value>
-            </list>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">-->
+        <!--<property name="interceptorNames">-->
+            <!--&lt;!&ndash; 我们的监控方法 &ndash;&gt;-->
+            <!--<list>-->
+                <!--<value>aopallianceTest</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="beanNames">-->
+            <!--<list>-->
+                <!--&lt;!&ndash; 添加到其中的 Bean 自动就被代理拦截了 &ndash;&gt;-->
+                <!--<value>testBean</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 </beans>

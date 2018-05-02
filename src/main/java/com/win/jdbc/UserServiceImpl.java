@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getUsers(String name) {
+        jdbcTemplate.queryForObject("select * from user where id=?", User.class);
         return jdbcTemplate.query("select * from user where name=?", new Object[]{name}, new int[]{Types.VARCHAR}, new UserMapper());
     }
 }

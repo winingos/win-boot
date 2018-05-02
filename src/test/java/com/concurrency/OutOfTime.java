@@ -1,10 +1,7 @@
 package com.concurrency;
 
-import javax.annotation.processing.Completion;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.FutureTask;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
